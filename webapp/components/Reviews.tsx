@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "@/components/ui/Button";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const reviews = [
   {
@@ -36,6 +41,8 @@ const reviews = [
   },
 ];
 
+const AUTOPLAY_DELAY = 3500;
+
 function formatAge(age: number): string {
   const mod10 = age % 10;
   const mod100 = age % 100;
@@ -47,20 +54,45 @@ function formatAge(age: number): string {
 
 export default function Reviews() {
   const [current, setCurrent] = useState(0);
+  const slideRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const directionRef = useRef<1 | -1>(1);
 
-  const prev = () => setCurrent((i) => (i - 1 + reviews.length) % reviews.length);
-  const next = () => setCurrent((i) => (i + 1) % reviews.length);
+  const next = useCallback(() => { directionRef.current = 1;  setCurrent((i) => (i + 1) % reviews.length); }, []);
+  const prev = () => { directionRef.current = -1; setCurrent((i) => (i - 1 + reviews.length) % reviews.length); };
+
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(next, AUTOPLAY_DELAY);
+  }, [next]);
+
+  useEffect(() => {
+    resetTimer();
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current, resetTimer]);
+
+  useEffect(() => {
+    if (!slideRef.current) return;
+    gsap.fromTo(
+      slideRef.current,
+      { opacity: 0, x: 20 * directionRef.current },
+      { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }
+    );
+  }, [current]);
+
+  const handlePrev = () => { prev(); resetTimer(); };
+  const handleNext = () => { next(); resetTimer(); };
+  const handleDot  = (i: number) => { setCurrent(i); resetTimer(); };
 
   return (
-    <section id="reviews" className="px-6 md:px-[15%] py-8 border-b border-brand-100">
+    <section id="reviews" className="scroll-mt-40 px-6 md:px-[15%] py-8 border-b border-brand-100">
       <h2 className="text-xs tracking-widest uppercase text-brand-300 mb-6">Отзывы</h2>
 
-      <div className="grid md:grid-cols-[1fr_300px] gap-10 md:gap-16 items-start">
+      <div className="grid md:grid-cols-[1fr_300px] gap-10 md:gap-16 items-center">
 
-        {/* Carousel */}
         <div>
           <div className="relative min-h-45 flex flex-col justify-between">
-            <div key={current} className="animate-fadein">
+            <div ref={slideRef}>
               <p className="text-2xl md:text-3xl font-light text-stone-700 leading-snug mb-6">
                 «{reviews[current].text}»
               </p>
@@ -71,18 +103,17 @@ export default function Reviews() {
           </div>
 
           <div className="mt-8 flex items-center gap-5">
-            <button onClick={prev} className="w-10 h-10 rounded-full border border-brand-200 text-brand-300 hover:bg-brand-400 hover:text-white hover:border-brand-400 transition-colors flex items-center justify-center" aria-label="Предыдущий">←</button>
-            <button onClick={next} className="w-10 h-10 rounded-full border border-brand-200 text-brand-300 hover:bg-brand-400 hover:text-white hover:border-brand-400 transition-colors flex items-center justify-center" aria-label="Следующий">→</button>
+            <button onClick={handlePrev} className="w-10 h-10 rounded-full border border-brand-200 text-brand-300 hover:bg-brand-400 hover:text-white hover:border-brand-400 transition-colors flex items-center justify-center" aria-label="Предыдущий">←</button>
+            <button onClick={handleNext} className="w-10 h-10 rounded-full border border-brand-200 text-brand-300 hover:bg-brand-400 hover:text-white hover:border-brand-400 transition-colors flex items-center justify-center" aria-label="Следующий">→</button>
             <div className="flex items-center gap-2 ml-2">
               {reviews.map((_, i) => (
-                <button key={i} onClick={() => setCurrent(i)} className={`rounded-full transition-all ${i === current ? "w-5 h-2 bg-brand-400" : "w-2 h-2 bg-brand-200 hover:bg-brand-300"}`} aria-label={`Отзыв ${i + 1}`} />
+                <button key={i} onClick={() => handleDot(i)} className={`rounded-full transition-all ${i === current ? "w-5 h-2 bg-brand-400" : "w-2 h-2 bg-brand-200 hover:bg-brand-300"}`} aria-label={`Отзыв ${i + 1}`} />
               ))}
             </div>
             <span className="ml-auto text-sm text-stone-300 tabular-nums">{current + 1} / {reviews.length}</span>
           </div>
         </div>
 
-        {/* New review form */}
         <div className="border border-brand-100 rounded-2xl p-6 bg-brand-50/30">
           <p className="text-xs tracking-widest uppercase text-brand-300 mb-4">Оставить отзыв</p>
           <form className="space-y-0 divide-y divide-brand-100 border-t border-brand-100">

@@ -1,36 +1,60 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import Button from "@/components/ui/Button";
+
+gsap.registerPlugin(useGSAP);
 
 const services = [
   {
     number: "01",
     title: "Первичная консультация",
     price: "35€",
-    description: "Знакомство, обозначение запроса и целей работы. 60 минут онлайн.",
+    description: "Знакомство, обозначение запроса и целей работы.",
   },
   {
     number: "02",
     title: "Повторная консультация",
     price: "30€",
-    description: "Регулярные сессии в рамках терапевтического процесса. 60 минут.",
+    description: "Регулярные сессии в рамках терапевтического процесса.",
   },
   {
     number: "03",
-    title: "Пакет 8 сессий",
+    title: "Пакет 10 сессий",
     price: "240€",
-    description: "Восемь встреч по выгодной цене для углублённой работы с запросом.",
+    description: "Десять встреч по выгодной цене для углублённой работы с запросом.",
   },
 ];
 
 export default function Services() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+
+      const rows = gsap.utils.toArray<Element>(".service-row", containerRef.current);
+      const loopTl = gsap.timeline({ repeat: -1 });
+      rows.forEach((el) => {
+        loopTl
+          .to(el, { scale: 1.02, color: "#44403c", duration: 0.25, ease: "power2.out" })
+          .to(el, { scale: 1, color: "#78716c", duration: 0.3, ease: "power2.in" })
+          .to({}, { duration: 0.2 });
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <section id="services" className="px-6 md:px-[15%] py-8 border-b border-brand-100 bg-brand-50/20">
+    <section ref={containerRef} id="services" className="scroll-mt-40 px-6 md:px-[15%] py-8 border-b border-brand-100 bg-brand-50/20">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xs tracking-widest uppercase text-brand-300">Услуги</h2>
         <p className="text-sm text-stone-400 hidden md:block">Zoom · Teams · Telegram · WhatsApp</p>
       </div>
-      <div className="divide-y divide-brand-100">
+      <div className="service-list divide-y divide-brand-100">
         {services.map((s) => (
-          <div key={s.number} className="py-4 grid md:grid-cols-[60px_1fr_100px_1fr] gap-3 md:gap-6 items-baseline">
+          <div key={s.number} className="service-row py-4 grid md:grid-cols-[60px_1fr_100px_1fr] gap-3 md:gap-6 items-baseline">
             <span className="text-base text-brand-200">{s.number}</span>
             <h3 className="text-lg font-light text-stone-700">{s.title}</h3>
             <p className="text-lg font-light tabular-nums text-brand-400">{s.price}</p>
@@ -47,7 +71,6 @@ export default function Services() {
           <Button variant="primary" href="#bookingform">Записаться на сессию</Button>
         </div>
       </div>
-      
     </section>
   );
 }
