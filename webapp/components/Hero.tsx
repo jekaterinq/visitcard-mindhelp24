@@ -68,7 +68,7 @@ export default function Hero() {
               </p>
             </div>
           </div>
-          <div className="hero-button mt-10 flex flex-col items-center md:flex-row md:items-center gap-3">
+          <div className="hero-button mt-6 flex flex-col items-center md:flex-row md:items-center gap-3">
             <Button variant="primary" href="#bookingform" className="md:px-12 md:py-4 md:text-xl">
               Записаться на сессию
             </Button>
