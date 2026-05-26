@@ -97,6 +97,7 @@ export default function About() {
             src="/images/photo-2.jpg"
             alt="Юлия Миронова"
             fill
+            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
           />
         </div>

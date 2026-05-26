@@ -25,11 +25,11 @@ export default function Hero() {
         },
       });
 
-      tl.from(".hero-label", { opacity: 0, y: 20, duration: 0.6 })
-        .from(".hero-title", { opacity: 0, y: 50, duration: 0.9 }, "-=0.3")
-        .from(".hero-stats", { opacity: 0, y: 30, duration: 0.7, stagger: 0.15 }, "-=0.4")
-        .from(".hero-button", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-        .from(".hero-image", { opacity: 0, x: 60, duration: 1 }, "-=1.2");
+      tl.fromTo(".hero-label", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 })
+        .fromTo(".hero-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.3")
+        .fromTo(".hero-stats", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15 }, "-=0.4")
+        .fromTo(".hero-button", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
+        .fromTo(".hero-image", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 1 }, "-=1.2");
     },
     { scope: containerRef }
   );
@@ -38,7 +38,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="scroll-mt-20 px-6 md:px-[15%] pt-10 pb-8 border-b border-brand-100 bg-brand-50/40"
+      className="scroll-mt-20 px-6 md:px-[15%] pt-15 pb-8 border-b border-brand-100 bg-brand-50/40"
     >
       <div className="grid md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-8 items-start">
         <div>
@@ -52,7 +52,7 @@ export default function Hero() {
             <div className="hero-stats">
               <p className="text-xs tracking-widest uppercase text-brand-300 mb-1.5">Доступно</p>
               <p className="text-base text-stone-500 leading-snug">
-                Цены ниже среднего. Первая консультация — 35€, пакеты со скидкой.
+                Цены ниже среднего. Первая консультация — 40€.
               </p>
             </div>
             <div className="hero-stats">
@@ -62,13 +62,13 @@ export default function Hero() {
               </p>
             </div>
             <div className="hero-stats">
-              <p className="text-xs tracking-widest uppercase text-brand-300 mb-1.5">Бесплатно</p>
+              <p className="text-xs tracking-widest uppercase text-brand-300 mb-1.5">Бережно</p>
               <p className="text-base text-stone-500 leading-snug">
-                Раз в месяц — бесплатная консультация для тех, кто не может позволить платную.
+                Работаю в темпе, который подходит именно вам. Без спешки и осуждения.
               </p>
             </div>
           </div>
-          <div className="hero-button mt-6 flex flex-col items-center md:flex-row md:items-center gap-3">
+          <div className="hero-button mt-6">
             <Button variant="primary" href="#bookingform" className="md:px-12 md:py-4 md:text-xl">
               Записаться на сессию
             </Button>
@@ -80,6 +80,7 @@ export default function Hero() {
             src="/images/photo-1.jpg"
             alt="Юлия Миронова — психолог"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 320px, 380px"
             className="object-cover"
             priority
           />

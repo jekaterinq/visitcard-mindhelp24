@@ -9,9 +9,15 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const certificates = [
-  { src: "/images/sertificate-test.png", alt: "Сертификат 1" },
-  { src: "/images/sertificate-test.png", alt: "Сертификат 2" },
-  { src: "/images/sertificate-test.png", alt: "Сертификат 3" },
+  { src: "/images/certificates/certificate-1-page-1.jpg", alt: "Сертификат 1" },
+  { src: "/images/certificates/certificate-1-page-2.jpg", alt: "Сертификат 1 - страница 2" },
+  { src: "/images/certificates/certificate-1-page-3.jpg", alt: "Сертификат 1 - страница 3" },
+  { src: "/images/certificates/certificate-2.jpg", alt: "Сертификат 2" },
+  { src: "/images/certificates/certificate-3.jpg", alt: "Сертификат 3" },
+  { src: "/images/certificates/certificate-4.jpg", alt: "Сертификат 4" },
+  { src: "/images/certificates/certificate-5.jpg", alt: "Сертификат 5" },
+  { src: "/images/certificates/certificate-6.jpg", alt: "Сертификат 6" },
+  { src: "/images/certificates/certificate-7.jpg", alt: "Сертификат 7" },
 ];
 
 const AUTOPLAY_DELAY = 3500;
@@ -23,10 +29,23 @@ export default function Experience() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const directionRef = useRef<1 | -1>(1);
 
-  const next = useCallback(() => { directionRef.current = 1;  setCurrent((i) => (i + 1) % certificates.length); }, []);
-  const prev = () => { directionRef.current = -1; setCurrent((i) => (i - 1 + certificates.length) % certificates.length); };
+  const goTo = useCallback((getNext: (i: number) => number, direction: 1 | -1) => {
+    directionRef.current = direction;
+    const slide = slideRef.current;
+    if (!slide) { setCurrent(getNext); return; }
+    gsap.killTweensOf(slide);
+    gsap.to(slide, {
+      opacity: 0,
+      x: -direction * 15,
+      duration: 0.2,
+      ease: "power2.in",
+      onComplete: () => setCurrent(getNext),
+    });
+  }, []);
 
-  // автоплей — сбрасывается при ручном переключении
+  const next = useCallback(() => goTo(i => (i + 1) % certificates.length, 1), [goTo]);
+  const prev = useCallback(() => goTo(i => (i - 1 + certificates.length) % certificates.length, -1), [goTo]);
+
   const resetTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(next, AUTOPLAY_DELAY);
@@ -41,30 +60,33 @@ export default function Experience() {
     if (!slideRef.current) return;
     gsap.fromTo(
       slideRef.current,
-      { opacity: 0, x: 20 * directionRef.current },
-      { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }
+      { opacity: 0, x: directionRef.current * 15 },
+      { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }
     );
   }, [current]);
 
   const handlePrev = () => { prev(); resetTimer(); };
   const handleNext = () => { next(); resetTimer(); };
-  const handleDot  = (i: number) => { setCurrent(i); resetTimer(); };
+  const handleDot  = (i: number) => { goTo(() => i, i >= current ? 1 : -1); resetTimer(); };
 
   useGSAP(
     () => {
-      gsap.from(".exp-paragraphs p", {
-        opacity: 0,
-        y: 25,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: ".exp-paragraphs",
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
+      gsap.fromTo(".exp-paragraphs p",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: ".exp-paragraphs",
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
     },
     { scope: containerRef }
   );
@@ -89,14 +111,19 @@ export default function Experience() {
         <div className="flex flex-col">
           <h2 className="text-xs tracking-widest uppercase text-brand-300 mb-6">Сертификаты</h2>
 
-          <div ref={slideRef} className="rounded-xl overflow-hidden bg-brand-50 p-4 flex items-center justify-center">
-            <Image
-              src={certificates[current].src}
-              alt={certificates[current].alt}
-              width={600}
-              height={800}
-              className="w-80% h-auto object-contain"
-            />
+          {/* фиксированный слот: высота = 75% ширины колонки */}
+          <div className="relative w-full aspect-4/3 rounded-xl overflow-hidden bg-brand-50">
+            <div ref={slideRef} className="absolute inset-0 p-4">
+              <div className="relative w-full h-full">
+                <Image
+                  src={certificates[current].src}
+                  alt={certificates[current].alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 47vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
           </div>
 
           {/* кнопки справа */}

@@ -5,9 +5,9 @@
   --color-brand-50: #f0f8fc;
   --color-brand-100: #d6edf7;
   --color-brand-200: #a8d5ec;
-  --color-brand-300: #4fb1db;
-  --color-brand-400: #4fb1db;
-  --color-brand-500: #3a9dc5;
+  --color-brand-300: #81C8E8;
+  --color-brand-400: #81C8E8;
+  --color-brand-500: #62b3d8;
 }
 
 :root {
@@ -24,6 +24,13 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.hero-label, .hero-title, .hero-stats, .hero-button, .hero-image {
+  opacity: 0;
+}
+.exp-paragraphs p {
+  opacity: 0;
 }
 
 @keyframes fadein {

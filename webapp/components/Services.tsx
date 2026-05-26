@@ -11,20 +11,20 @@ const services = [
   {
     number: "01",
     title: "Первичная консультация",
-    price: "35€",
-    description: "Знакомство, обозначение запроса и целей работы.",
+    price: "40€",
+    description: "Знакомство, обозначение запроса и целей работы. Онлайн.",
   },
   {
     number: "02",
     title: "Повторная консультация",
-    price: "30€",
-    description: "Регулярные сессии в рамках терапевтического процесса.",
+    price: "35€",
+    description: "Регулярные сессии в рамках терапевтического процесса. Онлайн.",
   },
   {
     number: "03",
-    title: "Пакет 10 сессий",
-    price: "240€",
-    description: "Десять встреч по выгодной цене для углублённой работы с запросом.",
+    title: "Офлайн консультация",
+    price: "50€",
+    description: "Сессия в формате личной встречи в Таллине.",
   },
 ];
 
@@ -66,8 +66,9 @@ export default function Services() {
         <div className="mt-5 pt-5 border-t border-brand-100 flex flex-col md:flex-row gap-4 text-base text-stone-500">
           <p><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Формат</span>60 минут онлайн.</p>
           <p className="md:ml-8"><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Оплата</span>До сессии. Перенос не менее чем за 24 часа.</p>
+          <p><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Поддержка 24/7</span>+40 евро/неделя.</p>
         </div>
-        <div className="mt-5 text-base text-stone-400">
+        <div className="mt-3">
           <Button variant="primary" href="#bookingform">Записаться на сессию</Button>
         </div>
       </div>
