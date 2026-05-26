@@ -53,44 +53,22 @@ export default function About() {
         scrollTrigger: { trigger: ".about-lists", ...scrollOpts },
       });
 
-      // цикличная подсветка пунктов "с чем работаю" пока секция видна
       const topicEls = gsap.utils.toArray<Element>(".about-topic", containerRef.current);
-      let loopTl: gsap.core.Timeline | null = null;
-
-      function startLoop() {
-        if (loopTl) return;
-        loopTl = gsap.timeline({ repeat: -1 });
-        topicEls.forEach((el) => {
-          loopTl!
-            .to(el, { scale: 1.04, color: "#44403c", duration: 0.25, ease: "power2.out" })
-            .to(el, { scale: 1, color: "#78716c", duration: 0.3, ease: "power2.in" })
-            .to({}, { duration: 0.15 }); // пауза между пунктами
-        });
-      }
-
-      function stopLoop() {
-        loopTl?.kill();
-        loopTl = null;
-        gsap.set(topicEls, { clearProps: "scale,color" });
-      }
-
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top 60%",
-        end: "bottom 20%",
-        onEnter: startLoop,
-        onLeave: stopLoop,
-        onEnterBack: startLoop,
-        onLeaveBack: stopLoop,
+      const loopTl = gsap.timeline({ repeat: -1 });
+      topicEls.forEach((el) => {
+        loopTl
+          .to(el, { scale: 1.04, color: "#44403c", duration: 0.25, ease: "power2.out" })
+          .to(el, { scale: 1, color: "#78716c", duration: 0.3, ease: "power2.in" })
+          .to({}, { duration: 0.15 });
       });
     },
     { scope: containerRef }
   );
 
   return (
-    <section ref={containerRef} id="about" className="scroll-mt-20 px-6 md:px-[15%] py-8 border-b border-brand-100">
+    <section ref={containerRef} id="about" className="scroll-mt-20 px-6 md:px-8 lg:px-[15%] py-8 border-b border-brand-100">
       <h2 className="text-xs tracking-widest uppercase text-brand-300 mb-6">Обо мне</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
 
         <div className="relative w-full aspect-3/4 rounded-2xl overflow-hidden">
           <Image
@@ -102,7 +80,7 @@ export default function About() {
           />
         </div>
 
-        <div>
+        <div className="md:order-3 lg:order-2 md:col-span-2 lg:col-span-1">
           <p className="text-2xl md:text-3xl font-light leading-snug mb-5 text-stone-700">
             Помогаю разобраться в себе и найти выход из сложных ситуаций.
           </p>
@@ -119,7 +97,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-lists space-y-6">
+        <div className="about-lists space-y-6 md:order-2 lg:order-3">
           <div>
             <p className="text-xs tracking-widest uppercase text-brand-300 mb-2.5">С чем работаю</p>
             <ul className="space-y-1">

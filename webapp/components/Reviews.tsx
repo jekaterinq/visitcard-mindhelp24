@@ -85,7 +85,7 @@ export default function Reviews() {
   const handleDot  = (i: number) => { setCurrent(i); resetTimer(); };
 
   return (
-    <section id="reviews" className="scroll-mt-40 px-6 md:px-[15%] py-8 border-b border-brand-100">
+    <section id="reviews" className="scroll-mt-40 px-6 md:px-8 lg:px-[15%] py-8 border-b border-brand-100">
       <h2 className="text-xs tracking-widest uppercase text-brand-300 mb-6">Отзывы</h2>
 
       <div className="grid md:grid-cols-[1fr_300px] gap-10 md:gap-16 items-center">

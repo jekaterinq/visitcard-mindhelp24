@@ -92,7 +92,7 @@ export default function Experience() {
   );
 
   return (
-    <section ref={containerRef} className="px-6 md:px-[15%] py-8 border-b border-brand-100">
+    <section ref={containerRef} className="px-6 md:px-8 lg:px-[15%] py-8 border-b border-brand-100">
       <div className="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
         {/* текст по центру вертикально, параграфы вылетают снизу */}
         <div className="flex flex-col">

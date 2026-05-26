@@ -47,7 +47,7 @@ export default function Services() {
   );
 
   return (
-    <section ref={containerRef} id="services" className="scroll-mt-40 px-6 md:px-[15%] py-8 border-b border-brand-100 bg-brand-50/20">
+    <section ref={containerRef} id="services" className="scroll-mt-40 px-6 md:px-8 lg:px-[15%] py-8 border-b border-brand-100 bg-brand-50/20">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xs tracking-widest uppercase text-brand-300">Услуги</h2>
         <p className="text-sm text-stone-400 hidden md:block">Zoom · Teams · Telegram · WhatsApp</p>
@@ -66,7 +66,7 @@ export default function Services() {
         <div className="mt-5 pt-5 border-t border-brand-100 flex flex-col md:flex-row gap-4 text-base text-stone-500">
           <p><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Формат</span>60 минут онлайн.</p>
           <p className="md:ml-8"><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Оплата</span>До сессии. Перенос не менее чем за 24 часа.</p>
-          <p><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Поддержка 24/7</span>+40 евро/неделя.</p>
+          <p className="md:ml-8"><span className="text-xs tracking-widest uppercase text-brand-300 mr-2">Поддержка 24/7</span>+40 евро/неделя.</p>
         </div>
         <div className="mt-3">
           <Button variant="primary" href="#bookingform">Записаться на сессию</Button>

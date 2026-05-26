@@ -6,6 +6,7 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   type?: "button" | "submit";
+  onClick?: () => void;
 }
 
 const styles: Record<ButtonVariant, string> = {
@@ -25,15 +26,16 @@ export default function Button({
   children,
   className = "",
   type = "button",
+  onClick,
 }: ButtonProps) {
   const cls = `${base} ${styles[variant]} ${className}`;
 
   if (href) {
-    return <a href={href} className={cls}>{children}</a>;
+    return <a href={href} className={cls} onClick={onClick}>{children}</a>;
   }
 
   return (
-    <button type={type} className={cls}>
+    <button type={type} className={cls} onClick={onClick}>
       {children}
     </button>
   );

@@ -38,9 +38,9 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="scroll-mt-20 px-6 md:px-[15%] pt-15 pb-8 border-b border-brand-100 bg-brand-50/40"
+      className="scroll-mt-20 px-6 md:px-8 lg:px-[15%] pt-15 pb-8 border-b border-brand-100 bg-brand-50/40"
     >
-      <div className="grid md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-8 items-start">
+      <div className="grid md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-8 items-center">
         <div>
           <p className="hero-label text-sm tracking-widest uppercase text-brand-300 mb-3">
             ЮЛИЯ МИРОНОВА — ПСИХОЛОГ
@@ -68,7 +68,7 @@ export default function Hero() {
               </p>
             </div>
           </div>
-          <div className="hero-button mt-6">
+          <div className="hero-button mt-6 flex justify-center md:justify-start">
             <Button variant="primary" href="#bookingform" className="md:px-12 md:py-4 md:text-xl">
               Записаться на сессию
             </Button>

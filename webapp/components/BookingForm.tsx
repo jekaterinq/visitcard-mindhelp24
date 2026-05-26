@@ -2,7 +2,7 @@ import Button from "@/components/ui/Button";
 
 export default function BookingForm() {
   return (
-    <section id="bookingform" className="scroll-mt-40 px-6 md:px-[15%] py-10 border-b border-brand-100 bg-brand-50/40">
+    <section id="bookingform" className="scroll-mt-40 px-6 md:px-8 lg:px-[15%] py-10 border-b border-brand-100 bg-brand-50/40">
       <div className="max-w-xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-light leading-tight mb-7 text-stone-700">
           Готовы сделать первый шаг?

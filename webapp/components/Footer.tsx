@@ -2,7 +2,7 @@ import { FaInstagram, FaTelegram, FaEnvelope, FaPhoneAlt, FaWhatsapp, FaViber } 
 
 export default function Footer() {
   return (
-    <footer id="footer" className="px-6 md:px-[15%] py-8 bg-brand-50/30">
+    <footer id="footer" className="px-6 md:px-8 lg:px-[15%] py-8 bg-brand-50/30">
 
       <div>
         <span className="text-xs tracking-widest uppercase text-brand-300 block mb-4">Контакты</span>
