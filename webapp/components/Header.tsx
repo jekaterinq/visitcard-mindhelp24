@@ -19,7 +19,7 @@ export default function Header() {
     <header className="fixed top-0 inset-x-0 z-50 border-b border-brand-100 bg-[#f8fbfd]/90 backdrop-blur-sm">
       <div className="pl-4 pr-4 md:px-8 lg:px-[15%] py-4 flex items-center justify-between">
         <a href="#hero" onClick={close}>
-          <Image src="/images/logo-no-back.png" alt="MindHelp24" width={190} height={30} className="h-16 w-auto" />
+          <Image src="/images/logo-no-back.png" alt="MindHelp24" width={190} height={30} className="h-16 w-auto" loading="eager" priority />
         </a>
 
         <nav className="hidden md:flex items-center gap-8 text-base text-stone-400">

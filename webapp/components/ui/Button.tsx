@@ -7,6 +7,7 @@ interface ButtonProps {
   className?: string;
   type?: "button" | "submit";
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const styles: Record<ButtonVariant, string> = {
@@ -27,15 +28,16 @@ export default function Button({
   className = "",
   type = "button",
   onClick,
+  disabled,
 }: ButtonProps) {
-  const cls = `${base} ${styles[variant]} ${className}`;
+  const cls = `${base} ${styles[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`;
 
   if (href) {
     return <a href={href} className={cls} onClick={onClick}>{children}</a>;
   }
 
   return (
-    <button type={type} className={cls} onClick={onClick}>
+    <button type={type} className={cls} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

@@ -11,11 +11,11 @@ export default function Footer() {
           <div className="space-y-2">
             <a href="tel:+37258240511" className="flex items-center gap-2 hover:text-brand-400 transition-colors">
               <FaPhoneAlt className="shrink-0" />
-              +372 582 405 11
+              +372 5824 0511
             </a>
-            <a href="mailto:yuliya@mindhelp24.com" className="flex items-center gap-2 hover:text-brand-400 transition-colors">
+            <a href="mailto:mindhelp24.info@gmail.com" className="flex items-center gap-2 hover:text-brand-400 transition-colors">
               <FaEnvelope className="shrink-0" />
-              yuliya@mindhelp24.com
+              mindhelp24.info@gmail.com
             </a>
           </div>
 

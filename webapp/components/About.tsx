@@ -9,20 +9,21 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const topics = [
-  "Проблемы с межличностными и семейными отношениями",
+  "Самооценка и самоценность",
   "Эмоциональное выгорание",
-  "Утрата близких",
-  "Стрессы и тревожность",
-  "Саморазвитие и самореализация",
-  "Разрешение конфликтов",
-  "Проблемы с принятием решений",
-  "Самооценка и любовь к себе",
+  "Последствия психотравмы",
+  "Внутренний критик",
+  "Горе и утрата",
+  "Подавленные эмоции",
 ];
 
-const notTopics = [
-  "Люди младше 20 лет",
-  "Наркотическая и алкогольная зависимость",
-  "Психиатрические заболевания без сопровождения психиатра",
+const understandTopics = [
+  "Себя",
+  "Свои внутренние состояния",
+  "Свои реакции и чувства",
+  "Последствия прошлого опыта",
+  "Почему внутри так тяжело",
+  "Как перестать бороться с собой",
 ];
 
 export default function About() {
@@ -77,6 +78,8 @@ export default function About() {
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover"
+            loading="eager"
+            priority
           />
         </div>
 
@@ -86,13 +89,10 @@ export default function About() {
           </p>
           <div className="about-paragraphs space-y-3 text-base text-stone-500 leading-snug">
             <p>
-              В своей практике я использую различные методы, учитывая особенности и потребности каждого клиента.
+              В своей работе я использую интегративный подход, IFS (Internal Family Systems) и методы работы с психотравмой. Бережно помогаю лучше понимать себя, свои внутренние состояния и причины эмоциональных переживаний.
             </p>
             <p>
-              Я специализируюсь на работе с самооценкой и помогаю своим клиентам полюбить себя, а также проработать психологические события, которые могут влиять на их жизнь.
-            </p>
-            <p>
-              Моя основная цель — создать безопасное пространство, где клиент может исследовать свои эмоции, осознать сильные стороны и ресурсы, и научиться принимать себя таким, какой он есть.
+              Моя цель — не затягивать терапию на годы, а помочь человеку лучше понять себя, свои состояния и найти внутреннюю опору.
             </p>
           </div>
         </div>
@@ -109,11 +109,11 @@ export default function About() {
             </ul>
           </div>
           <div>
-            <p className="text-xs tracking-widest uppercase text-brand-300 mb-2.5">С чем не работаю</p>
+            <p className="text-xs tracking-widest uppercase text-brand-300 mb-2.5">Помогаю понять</p>
             <ul className="space-y-1">
-              {notTopics.map((t) => (
-                <li key={t} className="about-list-item text-base text-stone-400 flex items-start gap-2">
-                  <span className="text-stone-300 shrink-0">—</span>{t}
+              {understandTopics.map((t) => (
+                <li key={t} className="about-list-item about-topic text-base text-stone-500 flex items-start gap-2">
+                  <span className="text-brand-200 shrink-0">—</span>{t}
                 </li>
               ))}
             </ul>

@@ -18,10 +18,9 @@ export default function Hero() {
         defaults: { ease: "power3.out" },
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",   // запускается когда верх секции входит в 80% экрана
-          end: "bottom 20%",  // заканчивается когда низ секции уходит за 20% экрана
+          start: "top 80%",
+          end: "bottom 20%",
           toggleActions: "play reverse play reverse",
-          // ↑ что делать при: enter / leave / re-enter / re-leave
         },
       });
 
