@@ -1,14 +1,14 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: NextRequest) {
   const { name, email, phone, service, message } = await req.json();
 
   if (!name || !email) {
     return NextResponse.json({ error: "Заполните обязательные поля" }, { status: 400 });
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const serviceLabels: Record<string, string> = {
     first: "Первичная консультация — 40€",
