@@ -5,22 +5,23 @@ import Button from "@/components/ui/Button";
 
 export default function BookingForm() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
-  const [errors, setErrors] = useState({ name: "", email: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    if (name === "name" || name === "email") setErrors((prev) => ({ ...prev, [name]: "" }));
+    if (name === "name" || name === "email" || name === "phone") setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newErrors = { name: "", email: "" };
+    const newErrors = { name: "", email: "", phone: "" };
     if (!form.name.trim()) newErrors.name = "Введите имя и фамилию";
     if (!form.email.trim()) newErrors.email = "Введите email";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) newErrors.email = "Введите корректный email";
-    if (newErrors.name || newErrors.email) {
+    if (!form.phone.trim()) newErrors.phone = "Введите телефон";
+    if (newErrors.name || newErrors.email || newErrors.phone) {
       setErrors(newErrors);
       return;
     }
@@ -41,7 +42,7 @@ export default function BookingForm() {
 
   const handleReset = () => {
     setForm({ name: "", email: "", phone: "", service: "", message: "" });
-    setErrors({ name: "", email: "" });
+    setErrors({ name: "", email: "", phone: "" });
     setStatus("idle");
   };
 
@@ -80,6 +81,7 @@ export default function BookingForm() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Ваше имя и фамилия"
+                maxLength={60}
                 className="w-full bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700"
               />
               {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
@@ -94,6 +96,7 @@ export default function BookingForm() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="example@mail.com (не пишите чужой email)"
+                maxLength={100}
                 className="w-full bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700"
               />
               {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
@@ -101,15 +104,18 @@ export default function BookingForm() {
           </div>
           <div className="py-3 flex items-center gap-4">
             <label className="text-xs tracking-widest uppercase text-brand-300 w-28 shrink-0">Телефон</label>
-            <input
-              type="tel"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="+372 0000 0000"
-              required
-              className="flex-1 bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700"
-            />
+            <div className="flex-1">
+              <input
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="+372 0000 0000"
+                maxLength={20}
+                className="w-full bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700"
+              />
+              {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+            </div>
           </div>
           <div className="py-3 flex items-center gap-4">
             <label className="text-xs tracking-widest uppercase text-brand-300 w-28 shrink-0">Услуга</label>
@@ -139,7 +145,7 @@ export default function BookingForm() {
           <span className="text-sm text-stone-400">
             *Перед началом работы клиент обязуется ознакомиться с{" "}
             <a
-              href="../../terms"
+              href="/terms"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-brand-300"

@@ -10,34 +10,44 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const reviews = [
   {
-    name: "Арина",
-    age: 28,
-    text: "Очень внимательный и чуткий специалист. После нескольких сессий я наконец почувствовала, что двигаюсь вперёд. Спасибо за поддержку!",
-  },
-  {
-    name: "Анна",
-    age: 34,
-    text: "Обратилась в сложный период. Юлия помогла структурировать мысли и найти опору внутри себя. Работать с ней комфортно и безопасно.",
-  },
-  {
-    name: "Артём",
-    age: 31,
-    text: "Долго не решался к психологу. С Юлией было легко с первой встречи. Прошли 8 сессий — изменения заметны и мне, и близким.",
-  },
-  {
     name: "Светлана",
-    age: 42,
-    text: "Юлия не навязывает мнение, а помогает самой прийти к пониманию. Каждая сессия — шаг к лучшей версии себя.",
+    age: 45,
+    text: "...Ты бережно и быстро вытащила меня из моего состояния невроза. Сейчас понимаю, что проблемы сдвинулись с мёртвой точки — они не мешают мне жить. Моё эмоциональное и душевное состояние в полной гармонии. Теперь благодаря тебе я принимаю только те решения, которые не приносят мне вреда и саморазрушения. А ещё главное — Я ПОЛЮБИЛА СЕБЯ!...",
   },
   {
     name: "Полина",
     age: 25,
-    text: "Помогла справиться с тревогой, которая мешала жить. Теперь у меня есть инструменты на каждый день.",
+    text: "Было очень приятно с тобой работать, в непринуждённой обстановке было легко доверять и делиться своими переживаниями. Я очень благодарна за проделанную работу, которая несомненно принесла свои плоды — сейчас я чувствую себя душевно уравновешенно. Спасибо большое!",
   },
   {
     name: "Кристина",
+    age: 36,
+    text: "Хочу поблагодарить Вас, Юлия! За проведённое со мной время. Вы спасли мой внутренний мир и разум. Вы профессионал своего дела! Именно таким должен быть настоящий психолог. Я очень рада, что встретила именно Вас и приобрела себе личного психолога. Ещё раз Вам большое человеческое спасибо, Юлия!",
+  },
+  {
+    name: "Светлана",
     age: 29,
-    text: "Профессионально, тепло, без осуждения. Чувствую себя услышанной и понятой.",
+    text: "Юля, спасибо тебе огромное за твой профессионализм, только благодаря тебе в моей жизни снова появились краски!",
+  },
+  {
+    name: "Полина",
+    age: 21,
+    text: "...С первого дня наших занятий я даже не представляла, насколько у меня есть глубокие травмы. Очень рада, что именно выбрала тебя — хотя это даже не был выбор, скорее зов сердца обратиться именно к тебе как к специалисту своего дела. После наших сессий я выбрала путь изучать себя дальше и глубже, больше стала понимать свои эмоции и мысли...",
+  },
+  {
+    name: "Арина",
+    age: 27,
+    text: "Юлия, привет! Хочу поблагодарить тебя за нашу сессию, которая помогла мне справиться с моей проблемой. После нашей сессии я поняла, что все мои проблемы идут из головы, и ты помогла мне понять, как справляться с мыслями. Спасибо ещё раз, советую тебя как психолога другим людям!",
+  },
+  {
+    name: "Анна",
+    age: 27,
+    text: "...После утраты близкого человека я была в глубоком эмоциональном кризисе и мне казалось, что я никогда не смогу вернуться к нормальной жизни. ... Я научилась жить с утратой, не теряя себя и своих планов на будущее. Юлия не просто помогла мне пережить трудное время, но и дала инструменты для того, чтобы справляться с любыми жизненными трудностями...",
+  },
+  {
+    name: "Артём",
+    age: 30,
+    text: "Юлия консультировала меня в связи с проблемами в семье. Это мешало мне жить и работать. Мы нашли причины моих беспокойств, и теперь я учусь их контролировать. Спасибо Юлии за её поддержку.",
   },
 ];
 
@@ -79,7 +89,7 @@ function ReviewForm() {
       <form onSubmit={handleSubmit} className="divide-y divide-brand-100 border-t border-brand-100">
         <div className="py-3 flex items-center gap-3">
           <label className="text-xs tracking-widest uppercase text-brand-300 w-16 shrink-0">Имя</label>
-          <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Ваше имя" required className="flex-1 bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700" />
+          <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Ваше имя" required maxLength={60} className="flex-1 min-w-0 bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700" />
         </div>
         <div className="py-3 flex items-center gap-3">
           <label className="text-xs tracking-widest uppercase text-brand-300 w-16 shrink-0">Возраст</label>
@@ -87,7 +97,10 @@ function ReviewForm() {
         </div>
         <div className="py-3 flex items-start gap-3">
           <label className="text-xs tracking-widest uppercase text-brand-300 w-16 shrink-0 pt-0.5">Текст</label>
-          <textarea name="text" value={form.text} onChange={handleChange} placeholder="Поделитесь своим опытом…" rows={4} required className="flex-1 bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700 resize-none" />
+          <div className="flex-1">
+            <textarea name="text" value={form.text} onChange={handleChange} placeholder="Поделитесь своим опытом…" rows={4} required maxLength={340} className="w-full bg-transparent text-base outline-none placeholder:text-stone-300 text-stone-700 resize-none" />
+            <p className={`text-xs mt-1 text-right ${form.text.length >= 300 ? "text-red-400" : "text-stone-300"}`}>{form.text.length}/340</p>
+          </div>
         </div>
         {reviewStatus === "error" && <p className="pt-2 text-red-400 text-xs">Ошибка отправки. Попробуйте позже.</p>}
         <div className="mt-4">
@@ -175,6 +188,10 @@ export default function Reviews() {
       },
     })
       .to(frontEl, { opacity: 0, x: -dir * 30, duration: 0.15, ease: "power2.in" }, 0)
+      .call(() => {
+        if (quote0.current) quote0.current.textContent = `«${reviews[to].text}»`;
+        if (author0.current) author0.current.textContent = authorLine(reviews[to]);
+      }, [], 0.15)
       .to(backEl,  { opacity: 1, x: 0,          duration: 0.4,  ease: "power3.out" }, 0.15);
   }, []);
 
@@ -227,10 +244,10 @@ export default function Reviews() {
       <div className="grid md:grid-cols-[1fr_300px] gap-10 md:gap-16 items-center">
 
         <div>
-          <div className="relative min-h-45">
+          <div className="relative min-h-80">
 
-            <div ref={slot0} className="flex flex-col justify-between">
-              <p ref={quote0} className="text-2xl md:text-3xl font-light text-stone-700 leading-snug mb-6">
+            <div ref={slot0} className="flex flex-col justify-center min-h-68 md:min-h-80">
+              <p ref={quote0} className="md:text-xl font-light text-stone-700 leading-snug mb-6">
                 «{reviews[0].text}»
               </p>
               <p ref={author0} className="text-xs tracking-widest uppercase text-brand-300">
@@ -238,8 +255,8 @@ export default function Reviews() {
               </p>
             </div>
 
-            <div ref={slot1} className="absolute inset-0 flex flex-col justify-between" style={{ opacity: 0 }}>
-              <p ref={quote1} className="text-2xl md:text-3xl font-light text-stone-700 leading-snug mb-6">
+            <div ref={slot1} className="absolute inset-0 flex flex-col justify-center" style={{ opacity: 0 }}>
+              <p ref={quote1} className="md:text-xl font-light text-stone-700 leading-snug mb-6">
                 «{reviews[1].text}»
               </p>
               <p ref={author1} className="text-xs tracking-widest uppercase text-brand-300">
@@ -249,7 +266,26 @@ export default function Reviews() {
 
           </div>
 
-          <div className="mt-8 flex items-center gap-5">
+          <div className="mt-4 flex items-center justify-end gap-4">
+            <div className="flex items-center gap-1 mr-auto">
+              {reviews.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleDot(i)}
+                  aria-label={`Отзыв ${i + 1}`}
+                  className={`rounded-full transition-all ${
+                    i === uiIdx
+                      ? "w-3 h-1.5 bg-brand-400"
+                      : "w-1.5 h-1.5 bg-brand-200 hover:bg-brand-300"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <span className="text-sm text-stone-300 tabular-nums">
+              {uiIdx + 1} / {N}
+            </span>
+
             <button
               onClick={handlePrev}
               aria-label="Предыдущий"
@@ -271,23 +307,6 @@ export default function Reviews() {
             >
               →
             </button>
-            <div className="flex items-center gap-2 ml-2">
-              {reviews.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleDot(i)}
-                  aria-label={`Отзыв ${i + 1}`}
-                  className={`rounded-full transition-all ${
-                    i === uiIdx
-                      ? "w-5 h-2 bg-brand-400"
-                      : "w-2 h-2 bg-brand-200 hover:bg-brand-300"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="ml-auto text-sm text-stone-300 tabular-nums">
-              {uiIdx + 1} / {N}
-            </span>
           </div>
         </div>
 

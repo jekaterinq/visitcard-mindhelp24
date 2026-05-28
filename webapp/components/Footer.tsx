@@ -54,7 +54,7 @@ export default function Footer() {
             className="hover:underline text-stone-300"
           >
             jekaterinq
-          </a>.
+          </a>
         </span>
       </div>
     </footer>

@@ -213,8 +213,8 @@ export default function Experience() {
                   aria-label={`Сертификат ${i + 1}`}
                   className={`rounded-full transition-all ${
                     i === uiIdx
-                      ? "w-5 h-2 bg-brand-400"
-                      : "w-2 h-2 bg-brand-200 hover:bg-brand-300"
+                      ? "w-3 h-1.5 bg-brand-400"
+                      : "w-1.5 h-1.5 bg-brand-200 hover:bg-brand-300"
                   }`}
                 />
               ))}
