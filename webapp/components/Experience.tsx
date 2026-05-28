@@ -149,7 +149,7 @@ export default function Experience() {
             trigger: ".exp-paragraphs",
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none none",
+            toggleActions: "play reverse play reverse",
           },
         }
       );
