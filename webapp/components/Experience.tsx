@@ -58,7 +58,7 @@ export default function Experience() {
     backImg.src = certificates[to].src;
     backImg.alt = certificates[to].alt;
 
-    gsap.set(backEl, { opacity: 0, x: dir * 30 });
+    gsap.set(backEl, { opacity: 0, x: dir * 60 });
 
     const prevFront = front.current;
     front.current = backIdx;
@@ -86,8 +86,8 @@ export default function Experience() {
         }
       },
     })
-      .to(frontEl, { opacity: 0, x: -dir * 30, duration: 0.15, ease: "power2.in" }, 0)
-      .to(backEl, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+      .to(frontEl, { opacity: 0, x: -dir * 60, duration: 0.3, ease: "power2.inOut" }, 0)
+      .to(backEl,  { opacity: 1, x: 0,          duration: 0.55, ease: "expo.out" }, 0.2);
   }, []);
 
   useEffect(() => {
