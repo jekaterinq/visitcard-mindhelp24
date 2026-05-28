@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: "MindHelp24 — Онлайн-консультации психолога",
   description:
     "Онлайн-консультации психолога. Помогу справиться с жизненными трудностями, обрести внутреннюю гармонию и улучшить качество жизни. Клиенты из любой точки мира.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
